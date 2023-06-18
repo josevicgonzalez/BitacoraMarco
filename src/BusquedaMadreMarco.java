@@ -128,7 +128,7 @@ public class BusquedaMadreMarco {
 
         }
 
-        System.out.println("Marco por fin encuentra a su madre luego de " + dias + " días de búsqueda");
+        System.out.println("Finalmente a los  " + dias + " días de búsqueda, Marco encuentra a su madre");
 
     }
 
