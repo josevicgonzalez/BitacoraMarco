@@ -6,66 +6,101 @@ public class BusquedaMadreMarco {
         Random random = new Random();
 
         // Variables de Marco
-        double velocidadPromedioMarco = random.nextDouble() * (15 - 10) + 10; // Velocidad promedio entre 10 y 15 km/h
-        int horasTrayecto = random.nextInt(3) + 8; // Entre 8 y 10 horas de trayecto diario
+
+        // Velocidad promedio entre 10 y 15 km/h
+        double velocidadPromedioMarco = random.nextDouble() * (15 - 10) + 10;
+
+        // Entre 8 y 10 horas de trayecto diario de Marco
+        int horasRecorrido= random.nextInt(3) + 8;
 
         // Variables de la madre de Marcos
-        double velocidadMadre = random.nextDouble() * (9 - 6) + 6; // Velocidad de 6 a 9 km/h
-        int horasTrayectoMadre = random.nextInt(4) + 6; // Entre 6 y 9 horas de trayecto que recorre al día de la madre
 
-        // Inicialización de variables de ambos
-        double distanciaMarco = 350; // Distancia inicial  de Marco hacia su madre
-        double distanciaMadre = 0; // Distancia recorrida por la madre
+        // Velocidad de 6 a 9 km/h
+        double velocidadMadre = random.nextDouble() * (9 - 6) + 6;
+
+        // Entre 6 y 9 horas de trayecto que recorre al día de la madre
+        int horasRecorridoMadre = random.nextInt(4) + 6;
+
+        // Inicializamos variables de Marcos y su madre
+
+        // Distancia inicial de Marco hacia su madre
+        double distanciaMarco = 350;
+
+        // Distancia recorrida por su madre
+        double distanciaMadre = 0;
         int dias = 0;
+        String estadoClima = "";
 
         while (distanciaMarco > 0) {
 
             dias++;
 
-            // Marco
+            // Recorrido de Marcos
             double velocidadMarco = velocidadPromedioMarco;
-            int horas = horasTrayecto;
+            int horas = horasRecorrido;
 
             // Verificar el clima
             double clima = random.nextDouble();
-            if (clima < 0.1) {// Lluvia fuerte (reducción del 25%)
 
+
+            // Lluvia fuerte (reducción del 25%)
+            if (clima < 0.1) {
+
+                estadoClima = "Con lluvia muy fuerte";
                 velocidadMarco = velocidadMarco * 0.25;
-            } else
-                if (clima < 0.4) { // Lluvia normal (reducción del 25%)
 
+            } else
+
+                // Lluvia normal (reducción del 25%)
+                if (clima < 0.4) {
+
+                estadoClima = "Con lluvia normal";
                 velocidadMarco = velocidadMarco * 0.75;
+
+            } else {
+
+                estadoClima = "con un buen sol y despejado";
             }
 
             // Verificar estado del mono
             double estadoMono = random.nextDouble();
-            if (estadoMono < 0.1) { // El mono se escapó y pierden dos horas en búsqueda
+
+            // El mono se escapó y pierden dos horas en búsqueda
+            if (estadoMono < 0.1) {
 
                 horas = horas - 2;
-            }
-            else if (estadoMono < 0.2) { // El mono se cansa y pierden 10% de velocida
+
+            } else
+
+                // El mono se cansa y pierden 10% de velocidad
+                if (estadoMono < 0.2) {
 
                 velocidadMarco = velocidadMarco * 0.9;
+
             }
 
             double distanciaRecorridaMarco = velocidadMarco * horas;
             distanciaMarco = distanciaMarco - distanciaRecorridaMarco;
 
-            // Madre
+            // Avance de la madre
             double velocidadMadreActual = velocidadMadre;
-            int horasMadre = horasTrayectoMadre;
+            int horasMadre = horasRecorridoMadre;
 
             // Verificar el clima de la madre
             double climaMadre = random.nextDouble();
-            if (climaMadre < 0.1) { // LLuvia fuerte reduce en 50% la velocidad
+
+            // LLuvia fuerte reduce en 50% la velocidad
+            if (climaMadre < 0.1) {
 
                 velocidadMadreActual = velocidadMadreActual * 0.5;
 
             } else
 
-                if (climaMadre < 0.4) { // LLuvia normal reduce en 25% la velocidad
+                // LLuvia normal reduce en 25% la velocidad
+                if (climaMadre < 0.4) {
 
                 velocidadMadreActual = velocidadMadreActual * 0.75;
+
             }
 
             double distanciaRecorridaMadre = velocidadMadreActual * horasMadre;
@@ -79,12 +114,22 @@ public class BusquedaMadreMarco {
                 if (encuentro < 0.5) {
 
                     distanciaMarco = distanciaMarco - 25;
+
                 }
             }
-            System.out.println(dias);
+
+            // Impresión de la bitácora diaria
+            System.out.println("Día " + dias + ": ");
+            System.out.println("Hoy logré recorrer: " + Math.floor(distanciaRecorridaMarco)  + " km");
+            System.out.println("La madre de Marco pudo recorrer " + Math.floor(distanciaRecorridaMadre)  + " km");
+            System.out.println("El clima estuvo " + estadoClima);
+            System.out.println("La madre se encuentra a una distancia de " + Math.floor(distanciaMarco)  + " km de Marco");
+            System.out.println("  ");
 
         }
 
-        System.out.println("Marco por fin encuentra a su madre luego de " + dias + " días de travesía ");
+        System.out.println("Marco por fin encuentra a su madre luego de " + dias + " días de búsqueda");
+
     }
+
 }
